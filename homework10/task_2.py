@@ -25,3 +25,10 @@ class Sedan(t1.Auto):
         super().drive()
         print(f'max speed of sedan {self.brand} {self.mark} is {Sedan.max_speed}')
 
+auto1 = Truck('tesla', 1,'truck')
+auto2 = Sedan('volkswagen',3,'Polo')
+auto1.drive()
+auto1.load()
+auto2.drive()
+print(Truck.max_load)
+print(Sedan.max_speed)
