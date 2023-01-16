@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Цитаты кани{% endblock %}
+{% block content %}
+
+{% for i in quotes %}
+<p>
+    {{ i }}
+</p>
+{% endfor %}
+{% endblock %}

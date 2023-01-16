@@ -17,8 +17,8 @@ class MyClassBasedView(View):
             number = 1
         
         self.list1 = [requests.get('https://api.kanye.rest').json()['quote'] for self.count  in range(int(number))]
-        answer = ' \n'.join(self.list1)
-        return HttpResponse(answer)
+        
+        return render(request, 'homework.html', {"quotes": self.list1})
 
 def factorial(n):
     if(n<=1):
