@@ -1,0 +1,11 @@
+{% extends 'games/home.html' %}
+{% block title %}Skills{% endblock %}
+
+{%block content%}
+{% for categ in category %}
+<ul>
+    <li><a href="{{categ.slug}}">{{categ.title}}</a></li>
+</ul>
+{% endfor %}
+
+{% endblock %}
