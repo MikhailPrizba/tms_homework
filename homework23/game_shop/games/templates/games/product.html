@@ -1,0 +1,13 @@
+{% extends 'games/home.html' %}
+{% block title %}Product{% endblock %}
+{%block content%}
+{% for game in games %}
+<div>
+    <h2>{{ game.name }}</h2>
+    <img src="{{game.game_image.url}}" >
+    <p> {{game.release_date_at}}</p>
+    <p>{{game.description}}</p>
+    <p>{{game.price}}</p>
+</div>
+{% endfor %}
+{% endblock %}

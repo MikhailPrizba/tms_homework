@@ -15,3 +15,11 @@ def categories(request, slug =None):
         return render(request, 'games/category_slug.html', context={'category': category, "games":games})
     else:
         return render(request, 'games/category.html', context ={'category': category, "games":games})
+
+def product(request, slug = None):
+    
+    games = Game.objects.all().filter(slug=slug)
+    if games:
+        return render(request, 'games/product.html', context= {'games' : games} )
+    else:
+        return render(request, 'games/404.html', status=404)
