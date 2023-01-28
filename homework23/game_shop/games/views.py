@@ -2,9 +2,18 @@ from django.shortcuts import render
 from games.models import Game, Category
 from django.http import HttpResponse, HttpRequest
 # Create your views here.
-def index(request):
-    games = Game.objects.all()
-    return render(request, 'games/home.html', context= {'games' : games} )
+def index(request: HttpRequest):
+    sort = request.GET.get('sort','None')
+    sort_game = {
+        'None': Game.objects.all(),
+        'price:asc': Game.objects.all().order_by('price'),
+        'price:desc': Game.objects.all().order_by('-price'),
+        'name:asc': Game.objects.all().order_by('name'),
+        'name:desc': Game.objects.all().order_by('-name'),
+    }
+
+    
+    return render(request, 'games/home.html', context= {'games': sort_game[sort]} )
 
 def categories(request, slug =None):
     category = Category.objects.all()

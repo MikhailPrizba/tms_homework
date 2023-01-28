@@ -18,7 +18,7 @@ class Category(models.Model):
 class Game(models.Model):
 
     name = models.CharField(max_length=50, verbose_name='Game Name')
-    description = models.TextField(max_length=150, verbose_name='Game Description')
+    description = models.TextField(verbose_name='Game Description')
     is_active = models.BooleanField(verbose_name='Game is active?')
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='publish date')
     release_date_at = models.DateTimeField( verbose_name='Release date')

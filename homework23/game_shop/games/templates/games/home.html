@@ -9,10 +9,30 @@
 </head>
 <body>
     {%block content%}
+    <a href="{{request.get.path}}/store/categories">Категории</a>
+    <div>
+        <p>Цена</p>
+        <ul>
+            <li><a href="{{request.get.path}}?sort=price:asc">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=price:desc">По убыванию</a></li>
+        </ul>
+    </div>
+    <div>
+        <p>Название</p>
+        <ul>
+            <li><a href="{{request.get.path}}?sort=name:asc">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=name:desc">По убыванию</a></li>
+        </ul>
+    </div>
+    
+    
+    
     {% for  game in games %}
+    
     <div>
         <h2><a href="{% url 'product'%}{{game.slug}}">{{ game.name }}</a></h2>
         <img src="{{game.game_image.url}}" >
+        <p>$ {{game.price}}</p>
         <hr>
     </div>
     {% endfor %}
