@@ -29,6 +29,7 @@ def product(request, slug = None):
     
     games = Game.objects.all().filter(slug=slug)
     if games:
+        print(games.values())
         return render(request, 'games/product.html', context= {'games' : games} )
     else:
         return render(request, 'games/404.html', status=404)
