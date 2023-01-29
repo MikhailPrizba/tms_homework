@@ -21,6 +21,7 @@ def categories(request, slug =None):
     games = Game.objects.all().filter(category__slug = slug)
     
     if slug and games:
+        print(request.GET.get('sort'))
         return render(request, 'games/category_slug.html', context={'category': category, "games":games})
     else:
         return render(request, 'games/category.html', context ={'category': category, "games":games})
@@ -29,7 +30,7 @@ def product(request, slug = None):
     
     games = Game.objects.all().filter(slug=slug)
     if games:
-        print(games.values())
+        
         return render(request, 'games/product.html', context= {'games' : games} )
     else:
         return render(request, 'games/404.html', status=404)

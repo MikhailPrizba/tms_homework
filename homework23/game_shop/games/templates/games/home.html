@@ -10,6 +10,7 @@
 <body>
     {%block content%}
     <a href="{{request.get.path}}/store/categories">Категории</a>
+    <hr>
     <div>
         <p>Цена</p>
         <ul>
@@ -31,7 +32,7 @@
     
     <div>
         <h2><a href="{% url 'product'%}{{game.slug}}">{{ game.name }}</a></h2>
-        <img src="{{game.game_image.url}}" >
+        <img src="{{game.game_image.url}}" width="500" height="300" >
         <p>$ {{game.price}}</p>
         <hr>
     </div>
