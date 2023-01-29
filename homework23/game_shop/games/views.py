@@ -8,8 +8,8 @@ def index(request: HttpRequest):
         'None': Game.objects.all(),
         'price:asc': Game.objects.all().order_by('price'),
         'price:desc': Game.objects.all().order_by('-price'),
-        'name:asc': Game.objects.all().order_by('name'),
-        'name:desc': Game.objects.all().order_by('-name'),
+        'name:asc': Game.objects.all().order_by('title'),
+        'name:desc': Game.objects.all().order_by('-title'),
     }
 
     

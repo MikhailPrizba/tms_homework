@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 class ShopInfoMixin(models.Model):
-    title = models.CharField(max_length=50, verbose_name="Title" )
-    description = models.TextField( verbose_name= "Description")
+    title = models.CharField(max_length=50, verbose_name="Title" )# как преопределить значение verbose_name  чтобы можно было
+    description = models.TextField( verbose_name= "Description")# написать типо Game Title, Game Descriptions
     is_active = models.BooleanField(verbose_name='is active')
     slug = models.SlugField(unique=True, verbose_name="URL")
 
