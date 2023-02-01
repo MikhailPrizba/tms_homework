@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from games.models import Game, Category
 from django.http import HttpResponse, HttpRequest
 # Create your views here.
@@ -33,5 +33,6 @@ def categories(request, slug):
 def product(request, slug ):
     
     games = get_object_or_404(Game, slug = slug)
+    
     return render(request, 'games/product.html', context= {'games' : games} )
    

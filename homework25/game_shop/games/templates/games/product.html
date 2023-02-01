@@ -1,13 +1,13 @@
 {% extends 'games/home.html' %}
 {% block title %}Product{% endblock %}
 {%block content%}
-{% for game in games %}
+
 <div>
-    <h2>{{ game.title }}</h2>
-    <img src="{{game.game_image.url}}" >
-    <p> {{ game.release_date_at|slice:":3" }}</p>
-    <p>{{game.description}}</p>
-    <p>$ {{game.price}}</p>
+    <h2>{{ games.title }}</h2>
+    <img src="{{games.game_image.url}}" >
+    <p> {{ games.release_date_at|slice:":3" }}</p>
+    <p>{{games.description}}</p>
+    <p>$ {{games.price}}</p>
 </div>
-{% endfor %}
+
 {% endblock %}
