@@ -12,6 +12,7 @@ class ShopInfoMixin(models.Model):
     class Meta:
         abstract = True
         
+        
 class Category(ShopInfoMixin):
 
     games_amount = models.IntegerField(default=0, verbose_name='amount')
@@ -35,6 +36,9 @@ class Game(ShopInfoMixin):
     class Meta:
         verbose_name = 'Game'
         verbose_name_plural = 'Games'
+        indexes = [
+            models.Index(fields=['title']) # создание индекса по title
+        ]
 
     def __str__(self):
         return (f"{self.title}")

@@ -6,8 +6,21 @@ class GameInline(admin.TabularInline):
     model = Game
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'view_game_link')
+    list_display = ('title', 'view_game_link', 'show_middle_price')
     inlines = [GameInline,]
+
+    @admin.display(description='middle_price')
+    def show_middle_price(self, obj): # выводит среднюю стоимость по каждой категории 
+        prices = 0
+        print('first one')
+        games = obj.game_set.all()
+        
+        for game in games:
+            prices += game.price
+        middle_price = prices/len(games)    
+        
+        return f"{middle_price: .2f} $"
+
 
     @admin.display(description="games")
     def view_game_link(self, obj):
@@ -30,7 +43,7 @@ class GameAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('category__title', 'title')
     readonly_fields = ('img_tag',)
-    actions = ('make_inactive', 'export_as_json',)
+    actions = ('make_inactive', 'export_as_json','export_as_csv')
     list_display = (
         'title',
         'release_date_at',
@@ -71,7 +84,7 @@ class GameAdmin(admin.ModelAdmin):
     def make_inactive(self, request, queryset):
         queryset.update(is_active=False)
     
-    @admin.action(description="Скачать")
+    @admin.action(description="Скачать Json")
     def export_as_json(self, request, queryset):
         from django.core import serializers
         from django.http import FileResponse
@@ -82,4 +95,21 @@ class GameAdmin(admin.ModelAdmin):
             as_attachment=True,
             filename=f"log-{datetime.now()}.json",
         )
+        return response
+    
+    @admin.action(description="Скачать CSV")# скачать как csv 
+    def export_as_csv(self,request,queryset):
+        import csv
+        from django.http import HttpResponse
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+        
         return response
