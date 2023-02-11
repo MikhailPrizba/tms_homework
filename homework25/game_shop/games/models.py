@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 
 
 # Create your models here.
@@ -12,7 +13,9 @@ class ShopInfoMixin(models.Model):
     class Meta:
         abstract = True
         
-        
+
+
+
 class Category(ShopInfoMixin):
 
     games_amount = models.IntegerField(default=0, verbose_name='amount')
@@ -43,18 +46,12 @@ class Game(ShopInfoMixin):
     def __str__(self):
         return (f"{self.title}")
 
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
+class Comment(models.Model):
+    text = models.TextField(max_length=150, verbose_name='Comment text')
+    pub_date = models.DateField(verbose_name='Comment publication date', auto_now_add=True, editable=False)
+    rating = models.IntegerField(verbose_name='Comment rating',  )
+    game = models.ForeignKey(Game, verbose_name='Game', on_delete=models.CASCADE)
 
-@receiver(post_save, sender = Game)   
-def create_game(instance, created,**kwargs):
-    if created:
-        profile = instance.category
-        profile.games_amount +=1
-        profile.save()
-
-@receiver(post_delete, sender = Game)
-def create_game(instance, **kwargs):
-    profile = instance.category
-    profile.games_amount -=1
-    profile.save()
+    def get_absolute_url(self):
+        return reverse("store:product", kwargs={"game_slug": self.game.slug})
+    
