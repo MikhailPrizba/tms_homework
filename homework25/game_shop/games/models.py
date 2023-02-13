@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
@@ -49,9 +50,10 @@ class Game(ShopInfoMixin):
 class Comment(models.Model):
     text = models.TextField(max_length=150, verbose_name='Comment text')
     pub_date = models.DateField(verbose_name='Comment publication date', auto_now_add=True, editable=False)
-    rating = models.IntegerField(verbose_name='Comment rating',  )
+    rating = models.IntegerField(verbose_name='Comment rating', default=0 , validators=[MaxValueValidator(5),
+                                                                                        MinValueValidator(0),],  )
     game = models.ForeignKey(Game, verbose_name='Game', on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse("store:product", kwargs={"game_slug": self.game.slug})
+        return reverse("store:product", kwargs={'product_slug': self.game.slug})
     

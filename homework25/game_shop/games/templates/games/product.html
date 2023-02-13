@@ -8,6 +8,14 @@
     <p> {{ games.release_date_at|slice:":3" }}</p>
     <p>{{games.description}}</p>
     <p>$ {{games.price}}</p>
+    <p>average rating {{average_rating}} / 5</p>
+
+    <a href= "{% url 'store:comment-add' games.slug %}">Add comment</a>
+    {% for comment in comments %}
+    <p>{{comment.text}}</p>
+    <p>rating {{comment.rating}}</p>
+    <a href="{% url 'store:comment-delete' comment.id %}">Delete comment</a>
+    {% endfor %}
     
 
 </div>

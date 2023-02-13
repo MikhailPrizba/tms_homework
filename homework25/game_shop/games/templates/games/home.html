@@ -8,6 +8,13 @@
     <title>{%block title%}Gameshop{% endblock %}</title>
 </head>
 <body>
+    {%block search %}
+    <form action="{% url 'store:search' %}" method="get">
+        <input type="text", type="search", name="q", placeholder="поиск игр">
+        <button type="submit">Найти</button>
+    </form>
+    {% endblock %}
+
     {%block content%}
     <a href="{{request.get.path}}/store/categories">Категории</a>
     <hr>
@@ -31,7 +38,7 @@
     {% for  game in games %}
     
     <div>
-        <h2><a href="{% url 'product'%}{{game.slug}}">{{ game.title }}</a></h2>
+        <h2><a href="{% url 'store:product' game.slug %}">{{ game.title }}</a></h2>
         <img src="{{game.game_image.url}}" width="500" height="300" >
         <p>$ {{game.price}}</p>
         <hr>
