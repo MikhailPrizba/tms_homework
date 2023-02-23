@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -53,7 +54,7 @@ class Comment(models.Model):
     rating = models.IntegerField(verbose_name='Comment rating', default=0 , validators=[MaxValueValidator(5),
                                                                                         MinValueValidator(0),],  )
     game = models.ForeignKey(Game, verbose_name='Game', on_delete=models.CASCADE)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def get_absolute_url(self):
         return reverse("store:product", kwargs={'product_slug': self.game.slug})
     

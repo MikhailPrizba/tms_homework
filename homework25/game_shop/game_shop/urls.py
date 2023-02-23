@@ -20,6 +20,8 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('store/', include('games.urls')),
+    path('users/', include('users.urls'))
+    
     
 ]
 if settings.DEBUG:

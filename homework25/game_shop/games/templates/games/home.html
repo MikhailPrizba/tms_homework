@@ -14,7 +14,18 @@
         <button type="submit">Найти</button>
     </form>
     {% endblock %}
-
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+    <p>
+    <a href="{%url 'users:logout'%}">Logout</a>
+    </p>
+    {% else %}
+    <p>Annonym. Please log in.</p>
+    <p>
+    <a href="{%url 'users:login'%}">Login</a>
+    <a href="{%url 'users:register'%}">register</a>
+    </p>
+    {% endif %}
     {%block content%}
     <a href="{{request.get.path}}/store/categories">Категории</a>
     <hr>
