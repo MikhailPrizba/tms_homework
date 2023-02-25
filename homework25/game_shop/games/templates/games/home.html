@@ -1,4 +1,4 @@
-
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +25,10 @@
     <p>
     <a href="{%url 'users:login'%}">Login</a>
     <a href="{%url 'users:register'%}">register</a>
-    <p><a href="{% provider_login_url 'github' %}">Login with GitHub</a></p>
+    <p><a href="{% provider_login_url 'github' %}" >Login github</a></p>
+    <p><a href="{% provider_login_url 'yandex' %}">Login With Yandex</a></p>
+        
+    
     </p>
     {% endif %}
     {%block content%}

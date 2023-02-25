@@ -74,7 +74,7 @@ def product(request, product_slug ):
     
     context = {'games' : games, 
                'comments':comments, 
-               'average_rating': f"{average_rating['rating__avg']: .2f}",
+               'average_rating': f"{average_rating['rating__avg']}",
                'comments_count': comments_count
                }
     

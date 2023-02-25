@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github'
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.yandex',
+    'allauth.socialaccount.providers.linkedin_oauth2'
 ]
 
 MIDDLEWARE = [
@@ -140,7 +142,12 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', 
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+
+
 SITE_ID = 1
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "store:index"
+LOGOUT_REDIRECT_URL = 'store:index' 
 ACCOUNT_LOGOUT_ON_GET = True
+
