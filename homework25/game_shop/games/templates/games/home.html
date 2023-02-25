@@ -18,12 +18,14 @@
     <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
     <p>
     <a href="{%url 'users:logout'%}">Logout</a>
+    <a href="{% url 'users:change_password'%}">Change password</a>
     </p>
     {% else %}
     <p>Annonym. Please log in.</p>
     <p>
     <a href="{%url 'users:login'%}">Login</a>
     <a href="{%url 'users:register'%}">register</a>
+    <p><a href="{% provider_login_url 'github' %}">Login with GitHub</a></p>
     </p>
     {% endif %}
     {%block content%}
