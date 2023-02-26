@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'api',
     'users.apps.UsersConfig',
     'ckeditor',
     'games.apps.GamesConfig',
@@ -46,7 +48,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.yandex',
-    'allauth.socialaccount.providers.linkedin_oauth2'
+    'allauth.socialaccount.providers.linkedin_oauth2',
+    
+    
+
 ]
 
 MIDDLEWARE = [
@@ -151,3 +156,9 @@ LOGIN_REDIRECT_URL = "store:index"
 LOGOUT_REDIRECT_URL = 'store:index' 
 ACCOUNT_LOGOUT_ON_GET = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES':(
+    'rest_framework.renderers.JSONRenderer',
+    'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
