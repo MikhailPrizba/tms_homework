@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
+import datetime
 # Create your views here.
 
 class CommentCreateView(CreateView):
@@ -61,6 +62,11 @@ def categories(request, slug):
 def product(request, product_slug ):
     
     games = get_object_or_404(Game, slug = product_slug)
+    last_visited_name = f'{request.user.username}_{product_slug}'
+    last_visited = request.COOKIES.get(last_visited_name)
+    print(last_visited)
+    last_user = request.COOKIES.get(request.user.username)
+    
     comments = games.comment_set.all()
     average_rating = comments.aggregate(Avg('rating'))
     comments_count = 0
@@ -69,16 +75,20 @@ def product(request, product_slug ):
         first_comment = list(comments.filter(user=request.user))
         other_comments = list(comments.exclude(user=request.user))
         comments = first_comment + other_comments
-        comments_count = len(request.user.comment_set.all())
-        print(comments_count)    
+        comments_count = len(request.user.comment_set.all().filter(game__slug= product_slug))
+           
     
     context = {'games' : games, 
                'comments':comments, 
                'average_rating': f"{average_rating['rating__avg']}",
-               'comments_count': comments_count
+               'comments_count': comments_count,
+               'last_visited' : last_visited,
                }
-    
-    return render(request, 'games/product.html', context )
+    response = render(request, 'games/product.html', context )
+    count = 0
+    value = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    response.set_cookie(last_visited_name, value, max_age= datetime.timedelta(days=30), )
+    return response
 
 
 class Search(ListView):
