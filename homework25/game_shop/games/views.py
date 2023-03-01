@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 # Create your views here.
 
-class CommentCreateView(CreateView):
+class CommentCreateView(CreateView): #создание комментариев
     model = Comment
     fields = ['text','rating']
 
@@ -20,7 +20,7 @@ class CommentCreateView(CreateView):
         form.instance.user = User.objects.get(id = self.request.user.id)
         
         return super().form_valid(form)
-class CommentUpdateView(UpdateView):
+class CommentUpdateView(UpdateView): 
     model = Comment
     fields = ['text','rating']
 
@@ -32,17 +32,12 @@ class CommentDeleteView(DeleteView):
 
 def index(request: HttpRequest):
     sort = request.GET.get('sort','None')
-    sort_games = {
-        'None': Game.objects.all(),
-        'price:asc': Game.objects.all().order_by('price'),
-        'price:desc': Game.objects.all().order_by('-price'),
-        'name:asc': Game.objects.all().order_by('title'),
-        'name:desc': Game.objects.all().order_by('-title'),
-    }
-    sort_game = sort_games.get(sort)
-    if not sort_game:
-        sort_game = Game.objects.all()
-    return render(request, 'games/home.html', context= {'games': sort_game, },  )
+    games = Game.objects.all()
+    if sort != 'None' :
+        games = Game.objects.all().order_by(sort)
+
+    
+    return render(request, 'games/home.html', context= {'games': games, },  )
 
 def all_categories(request: HttpRequest):
     category = Category.objects.filter(is_active = True)
@@ -52,6 +47,10 @@ def all_categories(request: HttpRequest):
 def categories(request, slug):
     category = get_object_or_404(Category, slug = slug)
     games = category.game_set.filter()
+    sort = request.GET.get('sort','None')
+    
+    if sort != 'None' :
+        games = Game.objects.all().order_by(sort)
     
     #games = Game.objects.all().filter(category__slug = slug)
     
@@ -63,9 +62,10 @@ def product(request, product_slug ):
     
     games = get_object_or_404(Game, slug = product_slug)
     last_visited_name = f'{request.user.username}_{product_slug}'
+    last_count_name = f'{request.user.username}_{product_slug}_count'
     last_visited = request.COOKIES.get(last_visited_name)
-    print(last_visited)
-    last_user = request.COOKIES.get(request.user.username)
+    last_count = request.COOKIES.get(last_count_name) or 0
+   
     
     comments = games.comment_set.all()
     average_rating = comments.aggregate(Avg('rating'))
@@ -83,11 +83,13 @@ def product(request, product_slug ):
                'average_rating': f"{average_rating['rating__avg']}",
                'comments_count': comments_count,
                'last_visited' : last_visited,
+               'last_count' : last_count
                }
     response = render(request, 'games/product.html', context )
-    count = 0
-    value = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    response.set_cookie(last_visited_name, value, max_age= datetime.timedelta(days=30), )
+    if request.user.is_authenticated:
+        visit_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        response.set_cookie(last_visited_name, visit_time, max_age= datetime.timedelta(days=30), )
+        response.set_cookie(last_count_name, int(last_count) +1, max_age= datetime.timedelta(days=30), )
     return response
 
 
@@ -106,5 +108,12 @@ class Search(ListView):
         context = super().get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q')
         return context
+    def render_to_response(self, context, **response_kwargs):
+        print(Search.get_queryset(self))
+        if not Search.get_queryset(self):
+            
+            return redirect('store:index')
+        else:
+            return super().render_to_response(context, **response_kwargs)
     
   

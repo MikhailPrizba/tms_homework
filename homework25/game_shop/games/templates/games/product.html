@@ -9,8 +9,8 @@
     <p>{{games.description}}</p>
     <p>$ {{games.price}}</p>
     <p>average rating {{average_rating}} / 5</p>
-    {% if last_visited %}
-    <p>вы просматривали эту страницу : {{last_visited}}</p>
+    {% if last_visited and last_count %}
+    <p>вы просматривали эту страницу : {{last_visited}}   {{last_count}} раз</p>
     {% endif %}
     {% if user.is_authenticated %}
     {% if comments_count < 1 %}

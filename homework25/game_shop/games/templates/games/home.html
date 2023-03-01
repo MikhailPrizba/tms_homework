@@ -23,29 +23,32 @@
     {% else %}
     <p>Annonym. Please log in.</p>
     <p>
+    
     <a href="{%url 'users:login'%}">Login</a>
     <a href="{%url 'users:register'%}">register</a>
-    <p><a href="{% provider_login_url 'github' %}" >Login github</a></p>
-    <p><a href="{% provider_login_url 'yandex' %}">Login With Yandex</a></p>
-        
-    
     </p>
+    
     {% endif %}
-    {%block content%}
+    {%block category%}
+    <p>
     <a href="{{request.get.path}}/store/categories">Категории</a>
     <hr>
+    {%endblock%}
+    </p>
+    {%block content%}
+   
     <div>
         <p>Цена</p>
         <ul>
-            <li><a href="{{request.get.path}}?sort=price:asc">По возрастанию</a></li>
-            <li><a href="{{request.get.path}}?sort=price:desc">По убыванию</a></li>
+            <li><a href="{{request.get.path}}?sort=price">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=-price">По убыванию</a></li>
         </ul>
     </div>
     <div>
         <p>Название</p>
         <ul>
-            <li><a href="{{request.get.path}}?sort=name:asc">По возрастанию</a></li>
-            <li><a href="{{request.get.path}}?sort=name:desc">По убыванию</a></li>
+            <li><a href="{{request.get.path}}?sort=title">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=-title">По убыванию</a></li>
         </ul>
     </div>
     
