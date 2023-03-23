@@ -1,0 +1,68 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}Gameshop{% endblock %}</title>
+</head>
+<body>
+    {%block search %}
+    <form action="{% url 'store:search' %}" method="get">
+        <input type="text", type="search", name="q", placeholder="поиск игр">
+        <button type="submit">Найти</button>
+    </form>
+    {% endblock %}
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+    <p>
+    <a href="{%url 'users:logout'%}">Logout</a>
+    <a href="{% url 'users:change_password'%}">Change password</a>
+    </p>
+    {% else %}
+    <p>Annonym. Please log in.</p>
+    <p>
+    
+    <a href="{%url 'users:login'%}">Login</a>
+    <a href="{%url 'users:register'%}">register</a>
+    </p>
+    
+    {% endif %}
+    {%block category%}
+    <p>
+    <a href="{{request.get.path}}/store/categories">Категории</a>
+    <hr>
+    {%endblock%}
+    </p>
+    {%block content%}
+   
+    <div>
+        <p>Цена</p>
+        <ul>
+            <li><a href="{{request.get.path}}?sort=price">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=-price">По убыванию</a></li>
+        </ul>
+    </div>
+    <div>
+        <p>Название</p>
+        <ul>
+            <li><a href="{{request.get.path}}?sort=title">По возрастанию</a></li>
+            <li><a href="{{request.get.path}}?sort=-title">По убыванию</a></li>
+        </ul>
+    </div>
+    
+    
+    
+    {% for  game in games %}
+    
+    <div>
+        <h2><a href="{% url 'store:product' game.slug %}">{{ game.title }}</a></h2>
+        <img src="{{game.game_image.url}}" width="500" height="300" >
+        <p>$ {{game.price}}</p>
+        <hr>
+    </div>
+    {% endfor %}
+    {% endblock %}
+</body>
+</html>

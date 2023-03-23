@@ -1,0 +1,8 @@
+
+{% extends 'games/home.html' %}
+{% block title %}Category slug{% endblock %}
+{% block category %}
+<a href="{%url 'store:index'%}">Back</a>
+{{ block.super }}
+
+{% endblock  %}

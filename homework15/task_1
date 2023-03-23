@@ -1,0 +1,12 @@
+1) SELECT SUM(Bytes) FROM tracks;
+2) SELECT (SELECT count(*) FROM employees) + (SELECT count(*) FROM customers)
+3) SELECT  Name 
+FROM tracks 
+WHERE (SELECT AlbumId FROM albums WHERE Title = "A-Sides") = AlbumId;
+4)
+SELECT Title, sum(UnitPrice) as Price FROM
+(SELECT Title, UnitPrice
+FROM albums
+INNER JOIN tracks
+on albums.AlbumId = tracks.AlbumId)
+GROUP BY(Title)
