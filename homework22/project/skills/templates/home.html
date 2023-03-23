@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>{% block title %}<h1>CV</h1>>{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'mystyle/footer.css'%}", type="text/css">
+    <link rel="icon" type="image/jpg" href="{% static 'mystyle/robeke.jpg' %}">
+</head>
+<body>
+    {% block content %}
+    <h1>My CV</h1>
+        <img src="{% static 'mystyle/robeke.jpg' %}"  width="200px">
+    <div>
+        <p>
+            Pryzba Mikhail. Dosimetrist at a nuclear power plant, welcomes you to my home page.
+        </p>
+        <hr>
+    </div>
+    <div class="information">
+        <h2>information about me</h2>
+        {% for link in link_list%}
+            <li><a href="{% url link %}">{{ link }}</a></li>
+        {% endfor %}
+    </div>
+    <div id='contacts'>
+            <h2>My contacts</h2>
+            {% for  key, value in  contact_list %}
+                <a class='contacts-link' href="{{value}}">{{ key }}.</a>
+            {% endfor %}
+    </div>
+    {% endblock %}   
+    
+    
+    {% block footer %}
+    <div id="footer">
+    <hr>
+    <a href="mailto:hottekote@gmail.com">Задавайте вопросы по электронной почте</a>
+    <p>Thank You</p>
+    </div>
+    {% endblock %}
+</body>
+</html>

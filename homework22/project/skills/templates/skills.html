@@ -1,0 +1,81 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block title %}<title>Skils</title>{% endblock  %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'mystyle/table.css'%}", type="text/css">
+</head>
+<table> 
+    <thead>
+        <tr>
+            <th  colspan="2" > Hard skills</th>
+            
+        </tr> <!--ряд с ячейками заголовков-->
+    </thead>
+    <tbody>
+        <tr>
+            <th>Skills</th>
+            <th>mark</th>
+        </tr>
+        <tr>
+            <td>Django</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>Flask</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>Linux</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Git</td>
+            <td>4</td>
+        </tr>
+
+          
+    </tbody>
+</table>
+
+<table> 
+    <thead>
+        <tr>
+            <th  colspan="2" > Hard skills</th>
+            
+        </tr> <!--ряд с ячейками заголовков-->
+    </thead>
+    <tbody>
+        <tr>
+            <th>Soft Skills</th>
+            <th>mark</th>
+        </tr>
+        <tr>
+            <td>communication</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Hardworking</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>friendlines</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>teamwork</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>learnability</td>
+            <td>4</td>
+        </tr>
+
+          
+    </tbody>
+</table>
+{% endblock  %}
