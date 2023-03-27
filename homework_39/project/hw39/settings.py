@@ -1,0 +1,1 @@
+PGSQL_DATABASE_URL = "postgresql+asyncpg://homework39:homework39@localhost:5432/homework39"
