@@ -18,12 +18,21 @@
             color: white;
             text-shadow: 0 2px 5px rgba(150, 150, 150, 0.8);
         }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            ;
+
+          }
 
         #root {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
+       
 
         #messages {
             width: 70%;
@@ -109,6 +118,7 @@
             -moz-box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.5);
             box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.5);
         }
+       
     </style>
 </head>
 <body>
@@ -128,9 +138,9 @@
         </div>
     </div>
 </div>
-<div>
+<div class="form"> 
     {% for a in data %}
-    <p > {{a}}</p>
+    <p> {{a}}</p>
     
     {% endfor %}
 </div>

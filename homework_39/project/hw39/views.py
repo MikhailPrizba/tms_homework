@@ -4,7 +4,7 @@ import aiohttp_jinja2
 
 routes = web.RouteTableDef()
 
-@routes.get('/v1')
+@routes.get('/v1', name='get_url')
 @aiohttp_jinja2.template("index.html")
 async def index(request):
     print(request.app)
@@ -15,7 +15,7 @@ async def index(request):
     print(texts)
     if not data:
         return web.Response(text='Hi')
-    return {'title': 'hi', 'data': texts}
+    return {'title': 'My comment', 'data': texts}
 
 @routes.post('/v1')
 @aiohttp_jinja2.template("index.html")
@@ -24,5 +24,6 @@ async def create_comment(request):
     coment_text = data['comment']
     print(coment_text)
     await service.create_comment(app = request.app, text= coment_text)
-    return web.Response(text='Done')
+    url = request.app.router['get_url'].url_for()
+    raise web.HTTPFound(url)
 
