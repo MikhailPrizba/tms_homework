@@ -1,10 +1,10 @@
 import datetime
 
-from sqlalchemy.ext.asyncio import AsyncSession
 from hw39.models import Comment
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
 from sqlalchemy.sql.expression import desc
+
 
 async def create_comment(app, text):
     db_rate = Comment(text = text, date_posted = datetime.datetime.now())

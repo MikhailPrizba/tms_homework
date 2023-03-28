@@ -1,9 +1,8 @@
+import aiohttp_jinja2
+import jinja2
 from aiohttp import web
-from hw39.views import routes
 from hw39.db import db_init
-import jinja2  
-import aiohttp_jinja2  
-
+from hw39.views import routes
 
 app = web.Application(debug=True)
 app.router.add_routes(routes)

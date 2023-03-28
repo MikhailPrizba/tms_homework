@@ -1,7 +1,6 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-
-from sqlalchemy.ext.asyncio import async_sessionmaker
 from hw39 import settings
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_async_engine(settings.PGSQL_DATABASE_URL,echo=True)

@@ -1,6 +1,6 @@
-from sqlalchemy import Column, DateTime,  Integer, String
-
 from hw39.db import Base
+from sqlalchemy import Column, DateTime, Integer, String
+
 
 class Comment(Base):
     __tablename__ = 'comments'

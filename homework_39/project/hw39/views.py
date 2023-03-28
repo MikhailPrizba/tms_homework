@@ -4,11 +4,12 @@ import aiohttp_jinja2
 
 routes = web.RouteTableDef()
 
+
 @routes.get('/v1', name='get_url')
 @aiohttp_jinja2.template("index.html")
 async def index(request):
     print(request.app)
-    data = await service.get_comment(app =request.app)
+    data = await service.get_comment(app=request.app)
     print(data)
     test1 = data.fetchall()
     texts = [row[0].text for row in test1]
@@ -17,13 +18,13 @@ async def index(request):
         return web.Response(text='Hi')
     return {'title': 'My comment', 'data': texts}
 
+
 @routes.post('/v1')
 @aiohttp_jinja2.template("index.html")
 async def create_comment(request):
     data = await request.post()
     coment_text = data['comment']
     print(coment_text)
-    await service.create_comment(app = request.app, text= coment_text)
+    await service.create_comment(app=request.app, text=coment_text)
     url = request.app.router['get_url'].url_for()
     raise web.HTTPFound(url)
-
